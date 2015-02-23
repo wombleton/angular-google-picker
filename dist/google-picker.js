@@ -19,6 +19,7 @@ angular.module('lk-google-picker', [])
     'DocsView().setIncludeFolders(true)',
     'DocsUploadView().setIncludeFolders(true)'
   ];
+  this.origin   = window.location.protocol + '//' + window.location.host;
   this.locale   = 'en'; // Default to English
 
   /**
@@ -32,7 +33,8 @@ angular.module('lk-google-picker', [])
       scopes   : this.scopes,
       features : this.features,
       views    : this.views,
-      locale   : this.locale
+      locale   : this.locale,
+      origin   : this.origin
     }
   };
 
@@ -97,7 +99,8 @@ angular.module('lk-google-picker', [])
                                .setLocale(lkGoogleSettings.locale)
                                .setDeveloperKey(lkGoogleSettings.apiKey)
                                .setOAuthToken(accessToken)
-                               .setCallback(pickerResponse);
+                               .setCallback(pickerResponse)
+                               .setOrigin(lkGoogleSettings.origin);
 
         if (lkGoogleSettings.features.length > 0) {
           angular.forEach(lkGoogleSettings.features, function(feature, key) {
